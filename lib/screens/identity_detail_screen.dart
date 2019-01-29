@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:whalechat_app/models/room.dart';
 import 'package:whalechat_app/models/cryptoAccount.dart';
 import 'package:whalechat_app/screens/chat_screen.dart';
 import 'package:whalechat_app/utils/app_state.dart';
 import 'package:whalechat_app/widgets/app_button.dart';
 import 'package:whalechat_app/widgets/identicon.dart';
-import 'package:whalechat_app/models/identity.dart';
+
+import '../models/identity.dart';
 
 ListTile _buildTile(BuildContext context, CryptoAccount account) {
   return ListTile(

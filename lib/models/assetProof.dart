@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-
 part 'assetProof.g.dart';
 
 @JsonSerializable(includeIfNull: false)

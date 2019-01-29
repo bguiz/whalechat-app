@@ -11,8 +11,6 @@ import 'package:whalechat_app/utils/utils.dart';
 import 'package:whalechat_app/widgets/app_button.dart';
 import 'package:whalechat_app/widgets/flexible_scroll_view.dart';
 
-const GITHUB_FAQ = 'https://github.com/whalechat';
-
 String messageToSign() {
   return '{"application": "wc", "version": "1", "pubKey": "' + AppState.instance.publicKey + '"}';
 }
@@ -84,7 +82,7 @@ class _NewAddressProofScreenState extends State<NewAddressProofScreen> {
                     child: Text('Learn sign methods'),
                     textColor: Colors.blue,
                     onPressed: () {
-                      launchBrowser(GITHUB_FAQ);
+                      launchBrowser('https://github.com/whalechat');
                     })
               ]),
               Divider(),

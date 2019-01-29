@@ -2,16 +2,16 @@ import 'dart:async';
 
 import 'package:json_rpc_2/json_rpc_2.dart' as json_rpc;
 import 'package:logging/logging.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:whalechat_app/models/identity.dart';
 import 'package:whalechat_app/models/message.dart';
-import 'package:whalechat_app/utils/utils.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:whalechat_app/protocol/validation.dart';
 import 'package:whalechat_app/models/assetProof.dart';
 import 'package:whalechat_app/models/lobby.dart';
 import 'package:whalechat_app/models/room.dart';
+import 'package:whalechat_app/protocol/validation.dart';
 import 'package:whalechat_app/utils/app_config.dart';
 import 'package:whalechat_app/utils/app_state.dart';
+import 'package:whalechat_app/utils/utils.dart';
 
 class ApiService {
   final _logger = Logger("ApiService");

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whalechat_app/utils/app_config.dart';
 import 'package:whalechat_app/widgets/ok_dialog.dart';
 import 'package:whalechat_app/widgets/app_button.dart';
 import 'package:whalechat_app/widgets/password_field.dart';

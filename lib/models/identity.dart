@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:whalechat_app/models/cryptoAccount.dart';
 import 'package:decimal/decimal.dart';
-
 part 'identity.g.dart';
 
 @JsonSerializable(includeIfNull: false)

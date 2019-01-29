@@ -1,8 +1,8 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:whalechat_app/screens/chat_screen.dart';
 import 'package:whalechat_app/utils/app_state.dart';
 import 'package:whalechat_app/widgets/app_button.dart';
-import 'package:decimal/decimal.dart';
 import 'package:whalechat_app/models/room.dart';
 
 class ChatJoinScreen extends StatelessWidget {

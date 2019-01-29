@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:whalechat_app/screens/create_identity_screen.dart';
 import 'package:whalechat_app/screens/import_identity_screen.dart';
 import 'package:whalechat_app/screens/pin_screen.dart';
+import 'package:whalechat_app/utils/app_config.dart';
 import 'package:whalechat_app/utils/app_state.dart';
 import 'package:whalechat_app/utils/utils.dart';
 import 'package:whalechat_app/widgets/yes_no_dialog.dart';

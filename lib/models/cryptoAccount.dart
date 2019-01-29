@@ -1,8 +1,7 @@
-import 'package:whalechat_app/models/assetProof.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:whalechat_app/utils/balance.dart';
 import 'package:decimal/decimal.dart';
-
+import 'package:whalechat_app/models/assetProof.dart';
+import 'package:whalechat_app/utils/balance.dart';
 part 'cryptoAccount.g.dart';
 
 @JsonSerializable(includeIfNull: false)

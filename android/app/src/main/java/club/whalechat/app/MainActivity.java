@@ -110,7 +110,6 @@ public class MainActivity extends FlutterActivity {
 
         ethAddress = ethAddress.replace("0x", "");
         ethAddress2 = ethAddress2.replace("0x", "");
-
         return ethAddress.compareToIgnoreCase(ethAddress2) == 0;
     }
 

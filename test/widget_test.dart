@@ -2,11 +2,18 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:convert/convert.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:path/path.dart';
+import 'package:whalechat_app/models/assetProof.dart';
+import 'package:whalechat_app/models/cryptoAccount.dart';
 import 'package:whalechat_app/models/identity.dart';
+import 'package:whalechat_app/protocol/transport.dart';
 import 'package:whalechat_app/screens/new_address_proof_screen.dart';
 import 'package:whalechat_app/screens/whale_chat_app.dart';
 import 'package:whalechat_app/utils/app_state.dart';
@@ -200,11 +207,11 @@ Future testRequestAssetProofs() async {
 
   assert(
     AppState.instance.storage.identityBook.first.accounts.firstWhere((account) =>
-    (account.address == '1M5etnos5v9KqqiQcJQqDL2nvhUgT6B6UY') && (account.balance == assetProofFixtures['api.blockcypher.com']['btc'][account.address]['balance']['balance'].toString()))
+    (account.address == '17KLVypAzviYZwDvJv2jn7Xo7oeTEDUtDM') && (account.balance == assetProofFixtures['api.blockcypher.com']['btc'][account.address]['balance']['balance'].toString()))
     != null);
 
   assert(
     AppState.instance.storage.identityBook.first.accounts.firstWhere((account) =>
-    (account.address == '0x28c0f36e51a09a7804cef2968eef0f4178037bf8') && (account.balance == assetProofFixtures['api.blockcypher.com']['eth'][account.address]['balance']['balance'].toString()))
+    (account.address == '0x83d3ccc6d538c9b085ae59c39d0cc11ab852d2be') && (account.balance == assetProofFixtures['api.blockcypher.com']['eth'][account.address]['balance']['balance'].toString()))
     != null);
 }

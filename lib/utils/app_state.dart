@@ -14,10 +14,10 @@ import 'package:whalechat_app/services/whisper_service.dart';
 import 'package:whalechat_app/utils/app_state_storage.dart';
 import 'package:whalechat_app/utils/crypto_utils.dart';
 import 'package:whalechat_app/utils/utils.dart';
-import 'package:quiver/iterables.dart';
 import 'package:whalechat_app/models/identity.dart';
 import 'package:whalechat_app/services/api_service.dart';
 import 'package:whalechat_app/utils/app_config.dart' as AppConfig;
+import 'package:quiver/iterables.dart';
 
 enum AppEnvironment { development, production }
 

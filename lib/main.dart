@@ -7,11 +7,10 @@ import 'package:whalechat_app/screens/whale_chat_app.dart';
 import 'package:whalechat_app/utils/app_state.dart';
 import 'package:whalechat_app/utils/app_config.dart';
 import 'package:sentry/sentry.dart';
-import 'package:whalechat_app/utils/utils.dart';
 
 void mainImpl() async {
   Logger.root.onRecord.listen((rec) {
-    dbgPrint("${rec.time}: [${rec.level.name}] ${rec.loggerName}: ${rec.message}");
+    debugPrint("${rec.time}: [${rec.level.name}] ${rec.loggerName}: ${rec.message}");
   });
 
   await AppState.instance.init();
