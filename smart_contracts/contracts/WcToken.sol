@@ -48,7 +48,7 @@ contract WcToken is ERC20 {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
-    constructor() {
+    constructor() public {
         totalSupply_ = MAX_TOKEN_SUPPLY;
         balances[msg.sender] = totalSupply_;
     }
@@ -56,21 +56,21 @@ contract WcToken is ERC20 {
       /**
    * @return the name of the token.
    */
-  function name() public view returns(string) {
+  function name() public pure returns(string) {
     return name_;
   }
 
   /**
    * @return the symbol of the token.
    */
-  function symbol() public view returns(string) {
+  function symbol() public pure returns(string) {
     return symbol_;
   }
 
   /**
    * @return the number of decimals of the token.
    */
-  function decimals() public view returns(uint8) {
+  function decimals() public pure returns(uint8) {
     return decimals_;
   }
 
@@ -231,8 +231,8 @@ contract WcToken is ERC20 {
   )
     internal
   {
-    // safeApprove should only be called when setting an initial allowance, 
-    // or when resetting it to zero. To increase and decrease it, use 
+    // safeApprove should only be called when setting an initial allowance,
+    // or when resetting it to zero. To increase and decrease it, use
     // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
     require((value == 0) || (token.allowance(msg.sender, spender) == 0));
     require(token.approve(spender, value));
