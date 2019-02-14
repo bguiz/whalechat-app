@@ -53,26 +53,26 @@ contract WcToken is ERC20 {
         balances[msg.sender] = totalSupply_;
     }
 
-      /**
-   * @return the name of the token.
-   */
-  function name() public pure returns(string) {
-    return name_;
-  }
+    /**
+    * @return the name of the token.
+    */
+    function name() public pure returns(string) {
+        return name_;
+    }
 
-  /**
-   * @return the symbol of the token.
-   */
-  function symbol() public pure returns(string) {
-    return symbol_;
-  }
+    /**
+    * @return the symbol of the token.
+    */
+    function symbol() public pure returns(string) {
+        return symbol_;
+    }
 
-  /**
-   * @return the number of decimals of the token.
-   */
-  function decimals() public pure returns(uint8) {
-    return decimals_;
-  }
+    /**
+    * @return the number of decimals of the token.
+    */
+    function decimals() public pure returns(uint8) {
+        return decimals_;
+    }
 
 
     // @dev total number of tokens in existence
@@ -153,110 +153,108 @@ contract WcToken is ERC20 {
         return allowed[_owner][_spender];
     }
 
-  /**
-   * @dev Increase the amount of tokens that an owner allowed to a spender.
-   * approve should be called when allowed_[_spender] == 0. To increment
-   * allowed value is better to use this function to avoid 2 calls (and wait until
-   * the first transaction is mined)
-   * From MonolithDAO Token.sol
-   * @param spender The address which will spend the funds.
-   * @param addedValue The amount of tokens to increase the allowance by.
-   */
-  function increaseAllowance(
-    address spender,
-    uint256 addedValue
-  )
-    public
-    returns (bool)
-  {
-    require(spender != address(0));
+    /**
+    * @dev Increase the amount of tokens that an owner allowed to a spender.
+    * approve should be called when allowed_[_spender] == 0. To increment
+    * allowed value is better to use this function to avoid 2 calls (and wait until
+    * the first transaction is mined)
+    * From MonolithDAO Token.sol
+    * @param spender The address which will spend the funds.
+    * @param addedValue The amount of tokens to increase the allowance by.
+    */
+    function increaseAllowance(
+        address spender,
+        uint256 addedValue
+    )
+        public
+        returns (bool)
+    {
+        require(spender != address(0));
 
-    allowed[msg.sender][spender] = (
-      allowed[msg.sender][spender].add(addedValue));
-    emit Approval(msg.sender, spender, allowed[msg.sender][spender]);
-    return true;
-  }
+        allowed[msg.sender][spender] = (
+            allowed[msg.sender][spender].add(addedValue));
+        emit Approval(msg.sender, spender, allowed[msg.sender][spender]);
+        return true;
+    }
 
-  /**
-   * @dev Decrease the amount of tokens that an owner allowed to a spender.
-   * approve should be called when allowed_[_spender] == 0. To decrement
-   * allowed value is better to use this function to avoid 2 calls (and wait until
-   * the first transaction is mined)
-   * From MonolithDAO Token.sol
-   * @param spender The address which will spend the funds.
-   * @param subtractedValue The amount of tokens to decrease the allowance by.
-   */
-  function decreaseAllowance(
-    address spender,
-    uint256 subtractedValue
-  )
-    public
-    returns (bool)
-  {
-    require(spender != address(0));
+    /**
+    * @dev Decrease the amount of tokens that an owner allowed to a spender.
+    * approve should be called when allowed_[_spender] == 0. To decrement
+    * allowed value is better to use this function to avoid 2 calls (and wait until
+    * the first transaction is mined)
+    * From MonolithDAO Token.sol
+    * @param spender The address which will spend the funds.
+    * @param subtractedValue The amount of tokens to decrease the allowance by.
+    */
+    function decreaseAllowance(
+        address spender,
+        uint256 subtractedValue
+    )
+        public
+        returns (bool)
+    {
+        require(spender != address(0));
 
-    allowed[msg.sender][spender] = (
-      allowed[msg.sender][spender].sub(subtractedValue));
-    emit Approval(msg.sender, spender, allowed[msg.sender][spender]);
-    return true;
-  }
+        allowed[msg.sender][spender] = (
+            allowed[msg.sender][spender].sub(subtractedValue));
+        emit Approval(msg.sender, spender, allowed[msg.sender][spender]);
+        return true;
+    }
 
+    function safeTransfer(
+        IERC20 token,
+        address to,
+        uint256 value
+    )
+        internal
+    {
+        require(token.transfer(to, value));
+    }
 
+    function safeTransferFrom(
+        IERC20 token,
+        address from,
+        address to,
+        uint256 value
+    )
+        internal
+    {
+        require(token.transferFrom(from, to, value));
+    }
 
-  function safeTransfer(
-    IERC20 token,
-    address to,
-    uint256 value
-  )
-    internal
-  {
-    require(token.transfer(to, value));
-  }
+    function safeApprove(
+        IERC20 token,
+        address spender,
+        uint256 value
+    )
+        internal
+    {
+        // safeApprove should only be called when setting an initial allowance,
+        // or when resetting it to zero. To increase and decrease it, use
+        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
+        require((value == 0) || (token.allowance(msg.sender, spender) == 0));
+        require(token.approve(spender, value));
+    }
 
-  function safeTransferFrom(
-    IERC20 token,
-    address from,
-    address to,
-    uint256 value
-  )
-    internal
-  {
-    require(token.transferFrom(from, to, value));
-  }
+    function safeIncreaseAllowance(
+        IERC20 token,
+        address spender,
+        uint256 value
+    )
+        internal
+    {
+        uint256 newAllowance = token.allowance(address(this), spender).add(value);
+        require(token.approve(spender, newAllowance));
+    }
 
-  function safeApprove(
-    IERC20 token,
-    address spender,
-    uint256 value
-  )
-    internal
-  {
-    // safeApprove should only be called when setting an initial allowance,
-    // or when resetting it to zero. To increase and decrease it, use
-    // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
-    require((value == 0) || (token.allowance(msg.sender, spender) == 0));
-    require(token.approve(spender, value));
-  }
-
-  function safeIncreaseAllowance(
-    IERC20 token,
-    address spender,
-    uint256 value
-  )
-    internal
-  {
-    uint256 newAllowance = token.allowance(address(this), spender).add(value);
-    require(token.approve(spender, newAllowance));
-  }
-
-  function safeDecreaseAllowance(
-    IERC20 token,
-    address spender,
-    uint256 value
-  )
-    internal
-  {
-    uint256 newAllowance = token.allowance(address(this), spender).sub(value);
-    require(token.approve(spender, newAllowance));
-  }
+    function safeDecreaseAllowance(
+        IERC20 token,
+        address spender,
+        uint256 value
+    )
+        internal
+    {
+        uint256 newAllowance = token.allowance(address(this), spender).sub(value);
+        require(token.approve(spender, newAllowance));
+    }
 }
