@@ -53,6 +53,18 @@ contract TokencraticMultiSigWallet {
     WcToken public token;
     uint256 public threshold;
 
+    // @dev Threshold for voting - akin to "lot size" for shares. ERC20 allows one to own any
+    //      arbitrarily small fraction of a token (10e-18), and this poses a problem within the
+    //      voting function function, as an attacker may obtain a single token and transfer small
+    //      fractions to a large number of addresses which it controls, thereby preventing the
+    //      `isConfirmed` function from executing henceforth, by causing it to run out of gas.
+    //      The solution to this is to specify that you must own a minimum percentage of the total
+    //      token supply in order to be allowed to cast a vote.
+    //      The selected threshold is equivalent to `token.MAX_TOKEN_SUPPLY().div(1000)`, which is
+    //      0.1% of the total token supply of `WcToken`.
+    //      TODO make this modifiable by means of tokencratic owner contract
+    uint256 public constant MIN_TOKENS_TO_VOTE = 360 * 10 ** uint256(3) * 10 ** uint256(18);
+
     struct Transaction {
         address destination;
         uint256 value;
@@ -87,6 +99,14 @@ contract TokencraticMultiSigWallet {
 
     modifier notNull(address _address) {
         require(_address != 0, "Invalid address");
+        _;
+    }
+
+    modifier meetsVoteThreshold(address _address) {
+        require(
+            token.balanceOf(_address) >= MIN_TOKENS_TO_VOTE,
+            "Must hold minimum threshold of tokens held to vote"
+        );
         _;
     }
 
@@ -149,6 +169,7 @@ contract TokencraticMultiSigWallet {
     function confirmTransaction(uint256 _transactionId) external
         transactionExists(_transactionId)
         notConfirmed(_transactionId, msg.sender)
+        meetsVoteThreshold(msg.sender)
     {
         confirmations[_transactionId][msg.sender] = true;
         emit Confirmation(msg.sender, _transactionId);
@@ -160,6 +181,7 @@ contract TokencraticMultiSigWallet {
     function revokeConfirmation(uint256 _transactionId) external
         confirmed(_transactionId, msg.sender)
         notExecuted(_transactionId)
+        meetsVoteThreshold(msg.sender)
     {
         confirmations[_transactionId][msg.sender] = false;
         emit Revocation(msg.sender, _transactionId);
